@@ -26,14 +26,16 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     return(
-        f"Available Routes:<br/>"
+        f"<h1>Available Routes:</h1>"
         f"<a href='/api/v1.0/precipitation'>Precipiation Records</a><br/>"
         f"<a href='/api/v1.0/stations'>Stations</a><br/>"
         f"<a href='/api/v1.0/tobs'>Temperature Observations</a><br/>"
-        f"<a href='/api/v1.0/<start>'>Temperature Date To Present</a><br/>"
-        f"Given a date parameter, returns minimum, maximum, and average temperatures from chosen date to present<br/>"
-        f"<a href='/api/v1.0/<start>/<end>'>Temperature in Date Range</a><br/>"
-        f"Given start date and end date parameters, returns minimum, maximum, and average temperatures in the date range<br/>"
+        f"<br/>"
+        f"Temperature Date To Present: '/api/v1.0/startdate'<br/>"
+        f"Given startdate parameter in yyyy-mm-dd format: returns minimum, maximum, and average temperatures from chosen date to present<br/>"
+        f"<br/>"
+        f"Temperature in Date Range: '/api/v1.0/startdate/enddate'<br/>"
+        f"Given startdate and enddate parameters yyyy-mm-dd format: returns minimum, maximum, and average temperatures in the date range<br/>"
     )
 
 @app.route('/api/v1.0/precipitation')
@@ -123,7 +125,7 @@ def startdate(start):
     max_temp = list(np.ravel(max_temp))
     avg_temp = list(np.ravel(avg_temp))
 
-    temp_dict = {'max': max_temp[0], 'min': min_temp[0], 'avg': avg_temp[0]}
+    temp_dict = {'max': max_temp[0], 'min': min_temp[0], 'avg': round(float(avg_temp[0]), 2)}
 
     return jsonify(temp_dict)
 
@@ -133,7 +135,7 @@ def daterange(start, end):
 
     min_temp = session.query(func.min(Measurement.tobs)).filter(Measurement.date >= start).filter(Measurement.date <= end).all()
     max_temp = session.query(func.max(Measurement.tobs)).filter(Measurement.date >= start).filter(Measurement.date <= end).all()
-    avg_temp = session.query(func.avg(Measurement.tobs)).filter(Measurement.date >= start).filter(Measurement.date <= end).all()
+    avg_temp = session.query(func.avg(Measurement.tobs)).filter(Measurement.date >= start).all()
 
     session.close()
 
@@ -141,7 +143,7 @@ def daterange(start, end):
     max_temp = list(np.ravel(max_temp))
     avg_temp = list(np.ravel(avg_temp))
 
-    temp_dict = {'max': max_temp[0], 'min': min_temp[0], 'avg': avg_temp[0]}
+    temp_dict = {'max': max_temp[0], 'min': min_temp[0], 'avg': round(float(avg_temp[0]), 2)}
 
     return jsonify(temp_dict)
 
