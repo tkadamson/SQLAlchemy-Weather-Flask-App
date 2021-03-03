@@ -135,7 +135,7 @@ def daterange(start, end):
 
     min_temp = session.query(func.min(Measurement.tobs)).filter(Measurement.date >= start).filter(Measurement.date <= end).all()
     max_temp = session.query(func.max(Measurement.tobs)).filter(Measurement.date >= start).filter(Measurement.date <= end).all()
-    avg_temp = session.query(func.avg(Measurement.tobs)).filter(Measurement.date >= start).all()
+    avg_temp = session.query(func.avg(Measurement.tobs)).filter(Measurement.date >= start).filter(Measurement.date <= end).all()
 
     session.close()
 
