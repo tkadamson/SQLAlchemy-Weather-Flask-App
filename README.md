@@ -22,7 +22,7 @@ The second piece of this project was generating a Flask API for various paramete
 
 For each of these pages, I made a Flask route, then performed the queries in a SQL Alchemy Session. Many of these queries wee as those in the previous section. Due to Flask constrains, I needed to unpack this data into a dictionary and then jsonify it to get a readable response. 
 
-### Temperature Analysis 1
+#### Temperature Analysis 1
 
 Finally, I completed one of the challenge assignments regarding temperatures in the months of June and Demember. After importing the csv into a pandas dataframe, I use the split and datetime functions to convert the date columns to a datetime format. Then I narrowed my dataframe to get two separate dataframes for June and December. 
 
