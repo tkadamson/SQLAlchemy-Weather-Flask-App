@@ -9,7 +9,11 @@ For this project, I was given a SQLite file of weather data, which was used to d
 
 After linking the given SQLite file to Python, and reflecting the data into classes using the SQLAlchemy automap_base(), I found the latest date in the dataset. Using the split function with datetime, I was able to calculate one year prior to the most recent date. Then I used those dates as bookends to query and plot precipitation levels by date. I also used the pandas .describe() function to get measures of central tendency for precipitation levels. 
 
+![Precip](images/Precip.png)          ![Summary](images/Summary.png)
+
 I also used the dataset to determine the weather station with the most active station, station USC00519281. With that station as a filter, I used SQLAlchemy queries to find the minimum, maximum, and average temperatures. I also used the dates found above to query the observed temperature data and plotted a histogram of occurences. 
+
+![USC00519281](images/USC00519281.png)
 
 #### Flask App API
 
